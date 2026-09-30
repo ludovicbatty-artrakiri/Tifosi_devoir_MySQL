@@ -117,3 +117,53 @@ CREATE TABLE menu (
         ON DELETE RESTRICT
 ) ENGINE = InnoDB;
 
+-- Tables de jointure (associations n,n) ------------------------------
+
+CREATE TABLE comprend (
+    id_focaccia   INT  NOT NULL,
+    id_ingredient INT  NOT NULL,
+    quantite      INT  NOT NULL,               -- quantité en grammes
+    CONSTRAINT pk_comprend            PRIMARY KEY (id_focaccia, id_ingredient),
+    CONSTRAINT ck_comprend_quantite   CHECK (quantite > 0),
+    CONSTRAINT fk_comprend_focaccia   FOREIGN KEY (id_focaccia)
+        REFERENCES focaccia (id_focaccia)
+        ON UPDATE CASCADE
+        ON DELETE CASCADE,                     -- supprimer une focaccia supprime sa recette
+    CONSTRAINT fk_comprend_ingredient FOREIGN KEY (id_ingredient)
+        REFERENCES ingredient (id_ingredient)
+        ON UPDATE CASCADE
+        ON DELETE RESTRICT                     -- interdit de supprimer un ingrédient utilisé
+) ENGINE = InnoDB;
+
+CREATE TABLE contient (
+    id_menu    INT  NOT NULL,
+    id_boisson INT  NOT NULL,
+    CONSTRAINT pk_contient         PRIMARY KEY (id_menu, id_boisson),
+    CONSTRAINT fk_contient_menu    FOREIGN KEY (id_menu)
+        REFERENCES menu (id_menu)
+        ON UPDATE CASCADE
+        ON DELETE CASCADE,
+    CONSTRAINT fk_contient_boisson FOREIGN KEY (id_boisson)
+        REFERENCES boisson (id_boisson)
+        ON UPDATE CASCADE
+        ON DELETE RESTRICT
+) ENGINE = InnoDB;
+
+CREATE TABLE achete (
+    id_client  INT   NOT NULL,
+    id_menu    INT   NOT NULL,
+    date_achat DATE  NOT NULL,
+    -- date_achat dans la clé : un client peut racheter le même menu un autre jour
+    CONSTRAINT pk_achete        PRIMARY KEY (id_client, id_menu, date_achat),
+    CONSTRAINT fk_achete_client FOREIGN KEY (id_client)
+        REFERENCES client (id_client)
+        ON UPDATE CASCADE
+        ON DELETE CASCADE,
+    CONSTRAINT fk_achete_menu   FOREIGN KEY (id_menu)
+        REFERENCES menu (id_menu)
+        ON UPDATE CASCADE
+        ON DELETE RESTRICT
+) ENGINE = InnoDB;
+
+-- Fin du script de création du schéma
+
