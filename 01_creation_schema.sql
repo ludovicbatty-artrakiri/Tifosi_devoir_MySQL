@@ -20,4 +20,21 @@ CREATE DATABASE tifosi
     CHARACTER SET utf8mb4
     COLLATE utf8mb4_unicode_ci;
 
+-- ---------------------------------------------------------------------
+-- 2. Création de l'utilisateur tifosi
+--    - limité à une connexion locale (localhost) : base hébergée en local
+--    - droits complets UNIQUEMENT sur la base tifosi (principe du moindre
+--      privilège : il ne peut pas toucher aux autres bases du serveur)
+--    /!\ Remplacer le mot de passe par un mot de passe robuste personnel.
+-- ---------------------------------------------------------------------
+DROP USER IF EXISTS 'tifosi'@'localhost';
+
+CREATE USER 'tifosi'@'localhost' IDENTIFIED BY 'Tif0si_Street#2026';
+
+GRANT ALL PRIVILEGES ON tifosi.* TO 'tifosi'@'localhost';
+
+FLUSH PRIVILEGES;
+
+
+USE tifosi;
 
