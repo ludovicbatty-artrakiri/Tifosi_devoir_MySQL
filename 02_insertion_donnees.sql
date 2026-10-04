@@ -22,3 +22,12 @@ SET NAMES utf8mb4;
 -- soit rien n'est inséré (pas de base à moitié remplie en cas d'erreur).
 
 START TRANSACTION;
+
+-- ---------------------------------------------------------------------
+-- Table marque (marque.xlsx)
+-- ---------------------------------------------------------------------
+INSERT INTO marque (id_marque, nom) VALUES
+    (1, 'Coca-cola'),
+    (2, 'Cristalline'),
+    (3, 'Monster'),
+    (4, 'Pepsico');
