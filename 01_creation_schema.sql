@@ -20,6 +20,7 @@ CREATE DATABASE tifosi
     CHARACTER SET utf8mb4
     COLLATE utf8mb4_unicode_ci;
 
+<<<<<<< Updated upstream
 -- ---------------------------------------------------------------------
 -- 2. Création de l'utilisateur tifosi
 --    - limité à une connexion locale (localhost) : base hébergée en local
@@ -166,4 +167,6 @@ CREATE TABLE achete (
 ) ENGINE = InnoDB;
 
 -- Fin du script de création du schéma
+=======
+>>>>>>> Stashed changes
 
